@@ -6,7 +6,7 @@
     ],
     "settings": {
         "files.associations": {
-            "main.h": "c"
+            "bsp_pmsm.h": "c"
         }
     },
     "extensions": {}

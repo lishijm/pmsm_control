@@ -21,7 +21,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "bsp_PMSM.h"
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim1;
@@ -95,6 +95,18 @@ void MX_TIM1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM1_Init 2 */
+  HAL_TIM_OC_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1);
+  /* CH2 CH2N*/
+  HAL_TIM_OC_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_2);
+  /* CH3 CH3N */
+  HAL_TIM_OC_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_3);
+  
+  HAL_TIMEx_ConfigCommutationEvent(&htim1, TIM_TS_ITR2, TIM_COMMUTATION_TRGI);
+  
+  
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 1+(PMSMOTOR_TIM_PERIOD * PWM_DUTY));
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 1+(PMSMOTOR_TIM_PERIOD * PWM_DUTY));
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 1+(PMSMOTOR_TIM_PERIOD * PWM_DUTY));
 
   /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
